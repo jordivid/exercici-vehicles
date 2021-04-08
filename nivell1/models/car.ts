@@ -1,4 +1,6 @@
-class Car{
+import { Wheel } from "./wheel";
+
+export class Car{
     plate:string;
     color:string;
     brand:string;

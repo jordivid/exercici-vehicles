@@ -1,4 +1,4 @@
-class Wheel{
+export class Wheel{
     public diameter:number;
     public brand:string;
 
