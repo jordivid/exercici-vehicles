@@ -1,7 +1,26 @@
 *{
     box-sizing: border-box;
 }
+
 body{
-    height: 100vh;
-    background-color: orange;
+    background-color: rgb(65, 115, 138);
+}
+
+h1{
+    text-shadow: 2px 2px 2px white;
+}
+
+#sectionWheels{
+    display: none;
+}
+
+.sectionCarData{
+    background-color: white;
+    border-radius: 3px;
+    margin-bottom: 5px;
+}
+
+.wheelData{
+    border: 1px solid black;
+    border-radius: 3px;
 }
