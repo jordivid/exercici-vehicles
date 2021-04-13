@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cars</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <link rel="stylesheet" href="./../styles/index.css" />
+    <script src="../controllers/controller.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1 class="text-center pt-3">Exercici Vehicles</h1>
+    </header>
+    <section id="sectionCar" class="container mt-3 w-50">
+      <form id="carForm">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="plate" class="font-weight-bold">Matrícula</label>
+              <input id="plate" name="plate" type="text" class="form-control form-control-sm" autofocus />
+              <div id="errplate" class="invalid-feedback"></div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="brand" class="font-weight-bold">Marca</label>
+              <input id="brand" name="brand" type="text" class="form-control form-control-sm" />
+              <div id="errbrand" class="invalid-feedback"></div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="color" class="font-weight-bold">Color</label>
+              <input id="color" name="color" type="text" class="form-control form-control-sm" />
+              <div id="errcolor" class="invalid-feedback"></div>
+            </div>
+          </div>
+        </div>
+        <div class="w-100 d-flex justify-content-center">
+          <button type="submit" class="btn btn-primary mt-2">
+            Crear cotxe
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <section id="sectionWheels" class="container mt-3">
+      <form id="wheelsForm">
+        <div class="row">
+          <div class="col-12 col-md-6 d-flex flex-column">
+            <h5 class="text-center font-weight-bold">Roda 1</h5>
+            <div class="d-flex flex-fill justify-content-around">
+              <div class="form-group pr-1">
+                <label for="marcar1" class="font-weight-bold">Marca</label>
+                <input
+                  id="marcar1"
+                  name="marcar1"
+                  type="text"
+                  class="form-control form-control-sm"
+                />
+                <div id="errmarcar1" class="invalid-feedback"></div>
+              </div>
+              <div class="form-group pl-1">
+                <label for="diametrer1" class="font-weight-bold"
+                  >Diàmetre</label
+                >
+                <input
+                  id="diametrer1"
+                  name="diametrer1"
+                  type="number"
+                  step="0.1"
+                  class="form-control form-control-sm"
+                />
+                <div id="errdiametrer1" class="invalid-feedback"></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 d-flex flex-column">
+            <h5 class="text-center font-weight-bold">Roda 2</h5>
+            <div class="d-flex flex-fill justify-content-around">
+              <div class="form-group pr-1">
+                <label for="marcar2" class="font-weight-bold">Marca</label>
+                <input
+                  id="marcar2"
+                  name="marcar2"
+                  type="text"
+                  class="form-control form-control-sm"
+                />
+                <div id="errmarcar2" class="invalid-feedback"></div>
+              </div>
+              <div class="form-group pl-1">
+                <label for="diametrer2" class="font-weight-bold"
+                  >Diàmetre</label
+                >
+                <input
+                  id="diametrer2"
+                  name="diametrer2"
+                  type="number"
+                  step="0.1"
+                  class="form-control form-control-sm"
+                />
+                <div id="errdiametrer2" class="invalid-feedback"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-6 d-flex flex-column">
+            <h5 class="text-center font-weight-bold">Roda 3</h5>
+            <div class="d-flex flex-fill justify-content-around">
+              <div class="form-group pr-1">
+                <label for="marcar3" class="font-weight-bold">Marca</label>
+                <input
+                  id="marcar3"
+                  name="marcar3"
+                  type="text"
+                  class="form-control form-control-sm"
+                />
+                <div id="errmarcar3" class="invalid-feedback"></div>
+              </div>
+              <div class="form-group pl-1">
+                <label for="diametrer3" class="font-weight-bold"
+                  >Diàmetre</label
+                >
+                <input
+                  id="diametrer3"
+                  name="diametrer3"
+                  type="number"
+                  step="0.1"
+                  class="form-control form-control-sm"
+                />
+                <div id="errdiametrer3" class="invalid-feedback"></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 d-flex flex-column">
+            <h5 class="text-center font-weight-bold">Roda 4</h5>
+            <div class="d-flex flex-fill justify-content-around">
+              <div class="form-group pr-1">
+                <label for="marcar4" class="font-weight-bold">Marca</label>
+                <input
+                  id="marcar4"
+                  name="marcar4"
+                  type="text"
+                  class="form-control form-control-sm"
+                />
+                <div id="errmarcar4" class="invalid-feedback"></div>
+              </div>
+              <div class="form-group pl-1">
+                <label for="diametrer4" class="font-weight-bold"
+                  >Diàmetre</label
+                >
+                <input
+                  id="diametrer4"
+                  name="diametrer4"
+                  type="number"
+                  step="0.1"
+                  class="form-control form-control-sm"
+                />
+                <div id="errdiametrer4" class="invalid-feedback"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="w-100 d-flex justify-content-center">
+          <button id="btBack" type="button" class="btn btn-secondary mt-2 mr-2">
+            Enrera
+          </button>
+          <button type="submit" class="btn btn-primary mt-2 ml-2">
+            Afegir rodes
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <audio id="engegada" src="./../assets/carsound.mp3">
+      Etiqueta audio no soportada
+    </audio>
+    <div id="carParking"></div>
+
+  </body>
+</html>

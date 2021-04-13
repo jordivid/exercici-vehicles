@@ -9,6 +9,15 @@ var Car = /** @class */ (function () {
         this.color = color;
         this.brand = brand;
     }
+    Car.hasCar = function (plate, cars) {
+        for (var _i = 0, cars_1 = cars; _i < cars_1.length; _i++) {
+            var car = cars_1[_i];
+            if (car.plate === plate) {
+                return true;
+            }
+        }
+        return false;
+    };
     Car.prototype.addWheel = function (wheel) {
         this.wheels.push(wheel);
     };

@@ -12,6 +12,16 @@ export class Car{
         this.color=color;
         this.brand=brand;
     }
+
+    public static hasCar(plate: string, cars: Car[]): boolean {
+        for(let car of cars) {
+            if (car.plate === plate) {
+                return true;
+            }
+        }
+
+        return false;
+    }
     
     public addWheel(wheel:Wheel):void{
         this.wheels.push(wheel);

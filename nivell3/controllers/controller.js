@@ -42,6 +42,15 @@ var Car = /** @class */ (function () {
         this.color = color;
         this.brand = brand;
     }
+    Car.hasCar = function (plate, cars) {
+        for (var _i = 0, cars_1 = cars; _i < cars_1.length; _i++) {
+            var car = cars_1[_i];
+            if (car.plate === plate) {
+                return true;
+            }
+        }
+        return false;
+    };
     Car.prototype.addWheel = function (wheel) {
         this.wheels.push(wheel);
     };
@@ -69,7 +78,7 @@ var Car = /** @class */ (function () {
     return Car;
 }());
 /***************************** */
-var car;
+var cars = new Array();
 window.addEventListener('load', function (event) {
     var _a, _b, _c;
     (_a = document.getElementById("carForm")) === null || _a === void 0 ? void 0 : _a.addEventListener("submit", createCar);
@@ -86,6 +95,7 @@ function createCar(e) {
     var brand = document.getElementById("brand");
     var color = document.getElementById("color");
     var result;
+    var car;
     // S'elimina els errors d'una validació prèvia
     var errplate = document.getElementById("errplate");
     var errbrand = document.getElementById("errbrand");
@@ -96,9 +106,16 @@ function createCar(e) {
     errplate.innerHTML = "";
     errbrand.innerHTML = "";
     errcolor.innerHTML = "";
+    // Es comprova que no existeixi un cotxe amb la mateixa matrícula
+    if (Car.hasCar(plate.value, cars)) {
+        plate.classList.add("is-invalid");
+        errplate.innerHTML = "Ja existeix un cotxe amb aquesta matrícula";
+        return;
+    }
     car = new Car(plate.value, color.value, brand.value);
     result = car.validate();
     if (result.status === "success") {
+        cars.push(car);
         seccioCotxe.style.display = "none";
         seccioRodes.style.display = "block";
         marcar1.focus();
@@ -123,6 +140,7 @@ function createWheels(e) {
     var success = true;
     var result;
     var rodes = new Array();
+    var car = cars[cars.length - 1];
     // S'elimina els errors d'una validació prèvia
     for (var i = 1; i < 5; i++) {
         var brand = document.getElementById("marcar" + i);
@@ -166,11 +184,13 @@ function paintErrors(validador) {
 }
 function buildCar() {
     // Construcció del codi html i addició al DOM
+    var seccioCotxe = document.getElementById("sectionCar");
     var so = document.getElementById("engegada");
     var seccioRodes = document.getElementById("sectionWheels");
     var parking = document.getElementById("carParking");
     var cotxe = "";
     var rodes = "";
+    var car = cars[cars.length - 1];
     var arrayRodes = car.wheels;
     var indx = 0;
     for (var _i = 0, arrayRodes_1 = arrayRodes; _i < arrayRodes_1.length; _i++) {
@@ -178,8 +198,11 @@ function buildCar() {
         ++indx;
         rodes += roda.htmlCode(indx);
     }
-    cotxe = car.htmlCode(rodes);
+    netejaFormCotxe();
+    netejaFormRodes();
     seccioRodes.style.display = "none";
+    seccioCotxe.style.display = "block";
+    cotxe = car.htmlCode(rodes);
     parking.insertAdjacentHTML("beforeend", cotxe);
     so.play();
 }
@@ -188,6 +211,15 @@ function retrocedir() {
     var seccioRodes = document.getElementById("sectionWheels");
     seccioRodes.style.display = "none";
     seccioCotxe.style.display = "block";
+    netejaFormRodes();
+    cars.pop();
+}
+function netejaFormCotxe() {
+    document.getElementById("plate").value = "";
+    document.getElementById("brand").value = "";
+    document.getElementById("color").value = "";
+}
+function netejaFormRodes() {
     document.getElementById("marcar1").value = "";
     document.getElementById("diametrer1").value = "";
     document.getElementById("marcar2").value = "";
