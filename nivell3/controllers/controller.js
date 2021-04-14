@@ -1,82 +1,123 @@
-// import { Validator } from "./../models/validator";
-// import { Car } from "./../models/car";
-// import { Wheel } from "./../models/wheel";
+"use strict";
+exports.__esModule = true;
+var car_1 = require("./../models/car");
+var wheel_1 = require("./../models/wheel");
 /***************************** */
-var Validator = /** @class */ (function () {
-    function Validator() {
-        this.status = "success";
-        this.messages = new Array();
-    }
-    Validator.prototype.addError = function (error) {
-        this.messages.push(error);
-    };
-    return Validator;
-}());
-var Wheel = /** @class */ (function () {
-    function Wheel(diameter, brand) {
-        this.diameter = diameter;
-        this.brand = brand;
-    }
-    Wheel.prototype.htmlCode = function (numero) {
-        var code = "\n            <div class=\"col-6 col-md-3 mb-1\">\n                <div class=\"d-flex flex-column p-1 wheelData\">\n                <h6 class=\"font-weight-bold\">Roda " + numero + "</h6>\n                <div class=\"d-flex\">\n                    <span class=\"font-weight-bold mr-1\">Marca:</span>\n                    <span class=\"text-break\">" + this.brand + "</span>\n                </div>\n                <div class=\"d-flex\">\n                    <span class=\"font-weight-bold mr-1\">Di\u00E0metre:</span>\n                    <span>" + this.diameter + "</span>\n                </div>\n            </div>\n        </div>\n        ";
-        return code;
-    };
-    Wheel.prototype.validate = function (numero) {
-        var validador = new Validator();
-        if (this.brand === "") {
-            validador.addError(["marcar" + numero, "Introdueix marca de la roda " + numero]);
-            validador.status = "failed";
-        }
-        if ((isNaN(this.diameter)) || (this.diameter < 0.4 || this.diameter > 2)) {
-            validador.addError(["diametrer" + numero, "El di\u00E0metre de la roda " + numero + " \u00E9s incorrecte"]);
-            validador.status = "failed";
-        }
-        return validador;
-    };
-    return Wheel;
-}());
-var Car = /** @class */ (function () {
-    function Car(plate, color, brand) {
-        this.wheels = new Array();
-        this.plate = plate;
-        this.color = color;
-        this.brand = brand;
-    }
-    Car.hasCar = function (plate, cars) {
-        for (var _i = 0, cars_1 = cars; _i < cars_1.length; _i++) {
-            var car = cars_1[_i];
-            if (car.plate === plate) {
-                return true;
-            }
-        }
-        return false;
-    };
-    Car.prototype.addWheel = function (wheel) {
-        this.wheels.push(wheel);
-    };
-    Car.prototype.htmlCode = function (wheelData) {
-        var code = "\n        <section class=\"container mt-3 pt-2 pb-2 sectionCarData animate__animated animate__bounceInRight\">\n            <h5 class=\"font-weight-bold\">Cotxe</h5>\n            <div class=\"row\">\n                <div class=\"col-6 col-md-3 d-flex w-100 overflow-auto\">\n                <span class=\"font-weight-bold mr-1\">Matr\u00EDcula:</span>\n                <span class=\"text-break\">" + this.plate + "</span>\n                </div>\n                <div class=\"col-6 col-md-3 d-flex w-100 overflow-auto\">\n                <span class=\"font-weight-bold mr-1\">Marca:</span>\n                <span class=\"text-break\">" + this.brand + "</span>\n                </div>\n                <div class=\"col-12 col-md-3 d-flex w-100 overflow-auto\">\n                <span class=\"font-weight-bold mr-1\">Color:</span>\n                <span class=\"text-break\">" + this.color + "</span>\n                </div>\n            </div>\n            <hr>\n            <h5 class=\"font-weight-bold\">Rodes</h5>\n            <div class=\"row\">\n                " + wheelData + "\n            </div>\n        </section>\n        ";
-        return code;
-    };
-    Car.prototype.validate = function () {
-        var validador = new Validator();
-        var platePattern = /^[0-9]{4}[A-Z]{3}$/;
-        if (this.plate.match(platePattern) === null) {
-            validador.addError(["plate", "La matrícula ha de tenir 4 dígits i 3 lletres majúscules"]);
-            validador.status = "failed";
-        }
-        if (this.brand === "") {
-            validador.addError(["brand", "La marca és obligatòria"]);
-            validador.status = "failed";
-        }
-        if (this.color === "") {
-            validador.addError(["color", "El color és obligatori"]);
-            validador.status = "failed";
-        }
-        return validador;
-    };
-    return Car;
-}());
+// class Validator{
+//     public status: string;
+//     public messages: string[][];
+//     constructor() {
+//         this.status = "success";
+//         this.messages = new Array();
+//     }
+//     addError(error: string[]) {
+//         this.messages.push(error);
+//     }
+// }
+// class Wheel{
+//     public diameter:number;
+//     public brand:string;
+//     constructor(diameter:number, brand:string){
+//         this.diameter=diameter;
+//         this.brand=brand;
+//     }
+//     public htmlCode(numero: number): string {
+//         let code: string = `
+//             <div class="col-6 col-md-3 mb-1">
+//                 <div class="d-flex flex-column p-1 wheelData">
+//                 <h6 class="font-weight-bold">Roda ${ numero }</h6>
+//                 <div class="d-flex">
+//                     <span class="font-weight-bold mr-1">Marca:</span>
+//                     <span class="text-break">${ this.brand }</span>
+//                 </div>
+//                 <div class="d-flex">
+//                     <span class="font-weight-bold mr-1">Diàmetre:</span>
+//                     <span>${ this.diameter }</span>
+//                 </div>
+//             </div>
+//         </div>
+//         `;
+//         return code;
+//     }
+//     public validate(numero: number) : Validator {
+//         let validador = new Validator();
+//         if (this.brand === "") {
+//             validador.addError(["marcar" + numero, `Introdueix marca de la roda ${ numero }`]);
+//             validador.status = "failed";
+//         }
+//         if  ((isNaN(this.diameter)) ||  (this.diameter < 0.4 || this.diameter > 2)) {
+//             validador.addError(["diametrer" + numero, `El diàmetre de la roda ${ numero } és incorrecte`]);
+//             validador.status = "failed";
+//         }
+//         return validador;
+//     }
+// }
+// class Car{
+//     public plate:string;
+//     public color:string;
+//     public brand:string;
+//     public wheels:Wheel[]=new Array();
+//     constructor(plate:string,color:string,brand:string){
+//         this.plate=plate;
+//         this.color=color;
+//         this.brand=brand;
+//     }
+//     public static hasCar(plate: string, cars: Car[]): boolean {
+//         for(let car of cars) {
+//             if (car.plate === plate) {
+//                 return true;
+//             }
+//         }
+//         return false;
+//     }
+//     public addWheel(wheel:Wheel):void{
+//         this.wheels.push(wheel);
+//     }
+//     public htmlCode(wheelData: string) : string {
+//         let code: string = `
+//         <section class="container mt-3 pt-2 pb-2 sectionCarData animate__animated animate__bounceInRight">
+//             <h5 class="font-weight-bold">Cotxe</h5>
+//             <div class="row">
+//                 <div class="col-6 col-md-3 d-flex w-100 overflow-auto">
+//                 <span class="font-weight-bold mr-1">Matrícula:</span>
+//                 <span class="text-break">${ this.plate }</span>
+//                 </div>
+//                 <div class="col-6 col-md-3 d-flex w-100 overflow-auto">
+//                 <span class="font-weight-bold mr-1">Marca:</span>
+//                 <span class="text-break">${ this.brand }</span>
+//                 </div>
+//                 <div class="col-12 col-md-3 d-flex w-100 overflow-auto">
+//                 <span class="font-weight-bold mr-1">Color:</span>
+//                 <span class="text-break">${ this.color }</span>
+//                 </div>
+//             </div>
+//             <hr>
+//             <h5 class="font-weight-bold">Rodes</h5>
+//             <div class="row">
+//                 ${ wheelData }
+//             </div>
+//         </section>
+//         `;
+//         return code;
+//     }
+//     public validate() : Validator {
+//         let validador = new Validator();
+//         let platePattern = /^[0-9]{4}[A-Z]{3}$/;
+//         if (this.plate.match(platePattern) === null) {
+//             validador.addError(["plate", "La matrícula ha de tenir 4 dígits i 3 lletres majúscules"]);
+//             validador.status = "failed";
+//         }
+//         if (this.brand === "") {
+//             validador.addError(["brand", "La marca és obligatòria"]);
+//             validador.status = "failed";
+//         }
+//         if (this.color === "") {
+//             validador.addError(["color", "El color és obligatori"]);
+//             validador.status = "failed";
+//         }
+//         return validador;
+//     }
+// }
 /***************************** */
 var cars = new Array();
 window.addEventListener('load', function (event) {
@@ -107,12 +148,12 @@ function createCar(e) {
     errbrand.innerHTML = "";
     errcolor.innerHTML = "";
     // Es comprova que no existeixi un cotxe amb la mateixa matrícula
-    if (Car.hasCar(plate.value, cars)) {
+    if (car_1.Car.hasCar(plate.value, cars)) {
         plate.classList.add("is-invalid");
         errplate.innerHTML = "Ja existeix un cotxe amb aquesta matrícula";
         return;
     }
-    car = new Car(plate.value, color.value, brand.value);
+    car = new car_1.Car(plate.value, color.value, brand.value);
     result = car.validate();
     if (result.status === "success") {
         cars.push(car);
@@ -152,10 +193,10 @@ function createWheels(e) {
         errbrand.innerHTML = "";
         errdiameter.innerHTML = "";
     }
-    rodes.push(new Wheel(diametrer1, marcar1));
-    rodes.push(new Wheel(diametrer2, marcar2));
-    rodes.push(new Wheel(diametrer3, marcar3));
-    rodes.push(new Wheel(diametrer4, marcar4));
+    rodes.push(new wheel_1.Wheel(diametrer1, marcar1));
+    rodes.push(new wheel_1.Wheel(diametrer2, marcar2));
+    rodes.push(new wheel_1.Wheel(diametrer3, marcar3));
+    rodes.push(new wheel_1.Wheel(diametrer4, marcar4));
     for (var _i = 0, rodes_1 = rodes; _i < rodes_1.length; _i++) {
         var roda = rodes_1[_i];
         ++indx;
